@@ -59,6 +59,11 @@ public class CommentsFragment extends DialogFragment {
         final InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
         imm.hideSoftInputFromWindow(getView().getWindowToken(), 0);
 
+        int dialogWidth = 200;
+        int dialogHeight = 100;
+
+        getDialog().getWindow().setLayout(dialogWidth, dialogHeight);
+
     }
 
 }

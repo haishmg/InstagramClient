@@ -38,19 +38,25 @@ public class InstagramPhotoAdapter extends ArrayAdapter<InstagramPhoto> {
         TextView tvCaption = (TextView) convertView.findViewById(R.id.tvCaption);
         TextView tvLikes = (TextView) convertView.findViewById(R.id.tvLikes);
         TextView tvUserName = (TextView) convertView.findViewById(R.id.tvUserName);
-        TextView tVTimeSincePosting = (TextView) convertView.findViewById(R.id.tVTimeSincePosting);
+        TextView tvTimeSincePosting = (TextView) convertView.findViewById(R.id.tVTimeSincePosting);
+        TextView tvLocation = (TextView) convertView.findViewById(R.id.tvLocation);
         long currentTime = System.currentTimeMillis();
 
         if (photo.getCaptionCreatedTime() != null) {
             CharSequence relativeTime = DateUtils.getRelativeTimeSpanString(photo.getCaptionCreatedTime() * 1000, currentTime, 60000);
             if (relativeTime.toString().contains("minutes"))
-             relativeTime.toString().replace("minutes ago", "m");
+                relativeTime = relativeTime.toString().replace("minutes ago", "m");
+            else if (relativeTime.toString().contains("minute"))
+                relativeTime = relativeTime.toString().replace("minute ago", "m");
             else if (relativeTime.toString().contains("hours"))
-             relativeTime.toString().replace("hours ago", "h");
+                relativeTime = relativeTime.toString().replace("hours ago", "h");
+            else if (relativeTime.toString().contains("hour"))
+                relativeTime = relativeTime.toString().replace("hour ago", "h");
             else if (relativeTime.toString().contains("weeks"))
-                relativeTime.toString().replace("weeks ago", "w");
-
-            tVTimeSincePosting.setText(relativeTime);
+                relativeTime = relativeTime.toString().replace("weeks ago", "w");
+            else if (relativeTime.toString().contains("week"))
+                relativeTime = relativeTime.toString().replace("week ago", "w");
+            tvTimeSincePosting.setText(relativeTime);
         }
 
 
@@ -62,6 +68,8 @@ public class InstagramPhotoAdapter extends ArrayAdapter<InstagramPhoto> {
         tvCaption.setText(photo.getCaption());
         tvUserName.setText(photo.getUserName());
         tvLikes.setText(photo.getLikesCount() + " Likes");
+        tvLocation.setText(photo.getLocation());
+
 
         ArrayList<PhotoComment> comments = new ArrayList<PhotoComment>();
         ivPhoto.setImageResource(0);

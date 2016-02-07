@@ -69,7 +69,7 @@ public class PhotosActivity extends AppCompatActivity  {
 
         FragmentManager fm = getFragmentManager();
         CommentsFragment commentsDialog = CommentsFragment.newInstance(photos.get(position).getComments());
-        commentsDialog.show(fm,"Comments");
+        commentsDialog.show(fm, "Comments");
 
 
     }
@@ -100,10 +100,15 @@ public class PhotosActivity extends AppCompatActivity  {
                             photo.setCaption(photoJson.getJSONObject("caption").getString("text"));
                             photo.setCaptionCreatedTime(Long.parseLong(photoJson.getJSONObject("caption").getString("created_time")));
                         }
-                        if (photoJson.optJSONObject("images") != null)
+                        if (photoJson.optJSONObject("images") != null) {
                             photo.setImageHeight(photoJson.getJSONObject("images").getJSONObject("standard_resolution").getString("height"));
-                        if (photoJson.optJSONObject("images") != null)
                             photo.setImageUrl(photoJson.getJSONObject("images").getJSONObject("standard_resolution").getString("url"));
+                        }
+                        else if (photoJson.optJSONObject("videos") != null) {
+                            photo.setImageHeight(photoJson.getJSONObject("videos").getJSONObject("standard_resolution").getString("height"));
+                            photo.setImageUrl(photoJson.getJSONObject("videos").getJSONObject("standard_resolution").getString("url"));
+
+                        }
                         if (photoJson.optJSONObject("likes") != null)
                             photo.setLikesCount(photoJson.getJSONObject("likes").getString("count"));
                         if (photoJson.optJSONObject("comments") != null) {
@@ -121,6 +126,7 @@ public class PhotosActivity extends AppCompatActivity  {
 
                             photo.setComments(photocomments);
                         }
+
                         photos.add(photo);
                     }
                 } catch (JSONException e) {

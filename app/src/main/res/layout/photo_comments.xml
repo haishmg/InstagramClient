@@ -3,6 +3,8 @@
     android:orientation="horizontal" android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:windowSoftInputMode="stateHidden"
+    android:minWidth="320dp"
+
     >
 
     <TextView
@@ -15,7 +17,7 @@
         android:textColorHighlight="@color/textbody"/>
 
     <TextView
-        android:layout_width="272dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="New Text"
         android:id="@+id/tvComment"
