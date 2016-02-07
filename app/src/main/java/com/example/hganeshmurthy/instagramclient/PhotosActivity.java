@@ -1,8 +1,10 @@
 package com.example.hganeshmurthy.instagramclient;
 
+import android.app.FragmentManager;
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
+import android.view.View;
 import android.widget.ListView;
 
 import com.loopj.android.http.AsyncHttpClient;
@@ -14,27 +16,32 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 
+import butterknife.Bind;
+import butterknife.ButterKnife;
 import cz.msebera.android.httpclient.Header;
 
-public class PhotosActivity extends AppCompatActivity {
+
+public class PhotosActivity extends AppCompatActivity  {
 
     public static final String CLIENT_ID = "e05c462ebd86446ea48a5af73769b602";
     private ArrayList<InstagramPhoto> photos;
-    private SwipeRefreshLayout swipeContainer;
+    @Bind ((R.id.swipeContainer)) SwipeRefreshLayout swipeContainer;
     private InstagramPhotoAdapter photoAdapter;
     AsyncHttpClient client;
+    @Bind (R.id.lvPhotos)ListView lvPhotos;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_photos);
+        ButterKnife.bind(this);
+
         photos = new ArrayList<>();
-        ListView lvPhotos = (ListView) findViewById(R.id.lvPhotos);
+       // lvPhotos = (ListView) findViewById(R.id.lvPhotos);
 
          fetchPopulatPhotos();
          photoAdapter = new InstagramPhotoAdapter(this,photos);
          lvPhotos.setAdapter(photoAdapter);
 
-        swipeContainer = (SwipeRefreshLayout) findViewById(R.id.swipeContainer);
         swipeContainer.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
@@ -50,6 +57,19 @@ public class PhotosActivity extends AppCompatActivity {
                 android.R.color.holo_orange_light,
                 android.R.color.holo_red_light);
 
+    }
+
+
+
+    public void viewMoreComments(View v) {
+
+        View parentRow = (View) v.getParent();
+        ListView listView = (ListView) parentRow.getParent();
+        final int position = listView.getPositionForView(parentRow);
+
+        FragmentManager fm = getFragmentManager();
+        CommentsFragment commentsDialog = CommentsFragment.newInstance(photos.get(position).getComments());
+        commentsDialog.show(fm,"Comments");
 
 
     }
@@ -98,6 +118,7 @@ public class PhotosActivity extends AppCompatActivity {
                                 singleComment.setUsername(username);
                                 photocomments.add(singleComment);
                             }
+
                             photo.setComments(photocomments);
                         }
                         photos.add(photo);

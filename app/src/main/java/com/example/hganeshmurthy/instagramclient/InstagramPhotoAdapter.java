@@ -5,6 +5,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapShader;
 import android.graphics.Canvas;
 import android.graphics.Paint;
+import android.text.format.DateUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -38,17 +39,21 @@ public class InstagramPhotoAdapter extends ArrayAdapter<InstagramPhoto> {
         TextView tvLikes = (TextView) convertView.findViewById(R.id.tvLikes);
         TextView tvUserName = (TextView) convertView.findViewById(R.id.tvUserName);
         TextView tVTimeSincePosting = (TextView) convertView.findViewById(R.id.tVTimeSincePosting);
-        long currentTime = System.currentTimeMillis() / 1000L;
-        if (photo.getCaptionCreatedTime() != null) {
-            long postedTime = photo.getCaptionCreatedTime();
-            int minutes = (int) (currentTime - postedTime) / 60;
+        long currentTime = System.currentTimeMillis();
 
-            if (minutes > 60) {
-                tVTimeSincePosting.setText(String.valueOf(minutes / 60) + "h");
-            } else {
-                tVTimeSincePosting.setText(String.valueOf(minutes + "m"));
-            }
+        if (photo.getCaptionCreatedTime() != null) {
+            CharSequence relativeTime = DateUtils.getRelativeTimeSpanString(photo.getCaptionCreatedTime() * 1000, currentTime, 60000);
+            if (relativeTime.toString().contains("minutes"))
+             relativeTime.toString().replace("minutes ago", "m");
+            else if (relativeTime.toString().contains("hours"))
+             relativeTime.toString().replace("hours ago", "h");
+            else if (relativeTime.toString().contains("weeks"))
+                relativeTime.toString().replace("weeks ago", "w");
+
+            tVTimeSincePosting.setText(relativeTime);
         }
+
+
 
         ImageView ivPhoto = (ImageView) convertView.findViewById(R.id.ivPhoto);
 
@@ -84,7 +89,7 @@ public class InstagramPhotoAdapter extends ArrayAdapter<InstagramPhoto> {
         for (PhotoComment comment : comments) {
             if (latestTimes.contains(comment.getCreated_time())) {
                 View line = LayoutInflater.from(getContext()).inflate(R.layout.photo_comments, null);
-                TextView tvCommentUserName = (TextView) line.findViewById(R.id.tcCommentUserName);
+                TextView tvCommentUserName = (TextView) line.findViewById(R.id.tvCommentUserName);
                 tvCommentUserName.setText(comment.getUsername() + "  ");
                 TextView tvComment = (TextView) line.findViewById(R.id.tvComment);
                 tvComment.setText(comment.getComment());

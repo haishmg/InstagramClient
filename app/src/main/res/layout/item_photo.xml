@@ -43,7 +43,8 @@
         android:minWidth="10dp"
         android:layout_below="@+id/tvLikes"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:layout_alignParentStart="true"
+        android:layout_margin="5dp"/>
 
     <TextView
         android:layout_width="wrap_content"
@@ -58,7 +59,8 @@
         android:padding="2dp"
         android:layout_below="@+id/ivPhoto"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:layout_alignParentStart="true"
+        android:layout_margin="5dp"/>
 
     <TextView
         android:layout_width="wrap_content"
@@ -91,33 +93,29 @@
         android:layout_height="match_parent"
         android:orientation="vertical"
         android:id="@+id/tlComments"
+        android:paddingEnd="5dp"
         android:layout_below="@+id/tvCaption"
-        android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:paddingEnd="5dp">
+        android:layout_alignParentEnd="true"
+        android:layout_margin="5dp">
     </TableLayout>
 
-
-
-
-
-    <ProgressBar
-        android:id="@+id/hoteldetails_progressBar"
-        style="?android:attr/progressBarStyleSmall"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:layout_gravity="center"
-        android:visibility="gone"
-        android:layout_centerHorizontal="true"
-        android:layout_centerVertical="true"
-        android:layout_marginTop="20dp"
-        android:layout_marginBottom="20dp" />
-
-    <ImageView
-        android:id="@+id/hoteldetails_imageView1"
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        android:scaleType="fitXY"
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/tvMoreComments"
+        android:layout_below="@+id/tlComments"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:gravity="center"
+        android:text="@string/underlinedText"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:clickable="true"
+        android:textColor="#096ff4"
+        android:textStyle="italic"
+        android:onClick="viewMoreComments"
+        android:autoLink="web"
+        android:layout_margin="5dp"
         />
 
 
