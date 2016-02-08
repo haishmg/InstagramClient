@@ -79,12 +79,12 @@ public class PhotosActivity extends AppCompatActivity  {
         View parentRow = (View) v.getParent();
         ListView listView = (ListView) parentRow.getParent();
         final int position = listView.getPositionForView(parentRow);
-
-        Intent i = new Intent(PhotosActivity.this, VideoPlayerActivity.class);
         String url = photos.get(position).getVideoUrl();
-        i.putExtra("url",url );
-        startActivityForResult(i, 200);
-
+        if(url != null) {
+            Intent i = new Intent(PhotosActivity.this, VideoPlayerActivity.class);
+            i.putExtra("url", url);
+            startActivityForResult(i, 200);
+        }
 
     }
         public void fetchPopulatPhotos()

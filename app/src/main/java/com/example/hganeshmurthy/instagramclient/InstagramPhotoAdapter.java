@@ -100,6 +100,10 @@ public class InstagramPhotoAdapter extends ArrayAdapter<InstagramPhoto> {
         {
             ivPlay.setVisibility(View.VISIBLE);
         }
+        else
+        {
+            ivPlay.setVisibility(View.GONE);
+        }
         latestTimes = getLatestTime(times);
         for (PhotoComment comment : comments) {
             if (latestTimes.contains(comment.getCreated_time())) {
