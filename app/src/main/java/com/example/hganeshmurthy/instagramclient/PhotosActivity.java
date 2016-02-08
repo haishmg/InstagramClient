@@ -1,6 +1,7 @@
 package com.example.hganeshmurthy.instagramclient;
 
 import android.app.FragmentManager;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
@@ -74,7 +75,19 @@ public class PhotosActivity extends AppCompatActivity  {
 
     }
 
-    public void fetchPopulatPhotos()
+    public void playVideo(View v) {
+        View parentRow = (View) v.getParent();
+        ListView listView = (ListView) parentRow.getParent();
+        final int position = listView.getPositionForView(parentRow);
+
+        Intent i = new Intent(PhotosActivity.this, VideoPlayerActivity.class);
+        String url = photos.get(position).getVideoUrl();
+        i.putExtra("url",url );
+        startActivityForResult(i, 200);
+
+
+    }
+        public void fetchPopulatPhotos()
     {
         String url = "https://api.instagram.com/v1/media/popular?client_id="+CLIENT_ID;
         AsyncHttpClient client = new AsyncHttpClient();
@@ -85,7 +98,6 @@ public class PhotosActivity extends AppCompatActivity  {
                 JSONArray instagramPhotos = null;
                 try {
                     instagramPhotos = response.getJSONArray("data");
-
                     for (int i = 0; i < instagramPhotos.length(); i++) {
                         JSONObject photoJson = instagramPhotos.getJSONObject(i);
                         InstagramPhoto photo = new InstagramPhoto();
@@ -104,9 +116,9 @@ public class PhotosActivity extends AppCompatActivity  {
                             photo.setImageHeight(photoJson.getJSONObject("images").getJSONObject("standard_resolution").getString("height"));
                             photo.setImageUrl(photoJson.getJSONObject("images").getJSONObject("standard_resolution").getString("url"));
                         }
-                        else if (photoJson.optJSONObject("videos") != null) {
-                            photo.setImageHeight(photoJson.getJSONObject("videos").getJSONObject("standard_resolution").getString("height"));
-                            photo.setImageUrl(photoJson.getJSONObject("videos").getJSONObject("standard_resolution").getString("url"));
+                        if (photoJson.optJSONObject("videos") != null) {
+                            photo.setVideoHeight(photoJson.getJSONObject("videos").getJSONObject("standard_resolution").getString("height"));
+                            photo.setVideoUrl(photoJson.getJSONObject("videos").getJSONObject("standard_resolution").getString("url"));
 
                         }
                         if (photoJson.optJSONObject("likes") != null)

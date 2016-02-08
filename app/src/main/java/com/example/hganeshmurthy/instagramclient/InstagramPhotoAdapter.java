@@ -26,6 +26,7 @@ import java.util.List;
 public class InstagramPhotoAdapter extends ArrayAdapter<InstagramPhoto> {
 
 
+
     public InstagramPhotoAdapter(Context context, List<InstagramPhoto> objects) {
         super(context, android.R.layout.simple_list_item_1, objects);
     }
@@ -40,6 +41,7 @@ public class InstagramPhotoAdapter extends ArrayAdapter<InstagramPhoto> {
         TextView tvUserName = (TextView) convertView.findViewById(R.id.tvUserName);
         TextView tvTimeSincePosting = (TextView) convertView.findViewById(R.id.tVTimeSincePosting);
         TextView tvLocation = (TextView) convertView.findViewById(R.id.tvLocation);
+        ImageView ivPlay = (ImageView) convertView.findViewById(R.id.ivPlay);
         long currentTime = System.currentTimeMillis();
 
         if (photo.getCaptionCreatedTime() != null) {
@@ -92,6 +94,11 @@ public class InstagramPhotoAdapter extends ArrayAdapter<InstagramPhoto> {
         list.removeAllViews();
         for (PhotoComment comment : comments) {
             times.add(comment.getCreated_time());
+        }
+
+        if(photo.getVideoUrl() != null)
+        {
+            ivPlay.setVisibility(View.VISIBLE);
         }
         latestTimes = getLatestTime(times);
         for (PhotoComment comment : comments) {

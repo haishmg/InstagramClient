@@ -129,6 +129,16 @@
         android:layout_below="@+id/tvUserName"
         android:layout_toEndOf="@+id/ivProfilePicture" />
 
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/ivPlay"
+        android:longClickable="false"
+        android:src="@drawable/ic_play"
+        android:onClick="playVideo"
+        android:visibility="gone"
+        android:layout_above="@+id/tvLikes"
+        android:layout_alignEnd="@+id/tVTimeSincePosting" />
 
 
 </RelativeLayout>

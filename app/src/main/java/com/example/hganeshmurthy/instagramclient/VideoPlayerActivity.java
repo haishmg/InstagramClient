@@ -1,15 +1,15 @@
 package com.example.hganeshmurthy.instagramclient;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.media.MediaPlayer;
-import android.widget.MediaController;
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
+import android.widget.MediaController;
 import android.widget.VideoView;
 
-public class VideoPlayerActivity extends AppCompatActivity {
+public class VideoPlayerActivity extends Activity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,7 +24,7 @@ public class VideoPlayerActivity extends AppCompatActivity {
 
             if (url != null) {
                 v.setMediaController(new MediaController(this));
-             //   v.setOnCompletionListener(this);
+                //   v.setOnCompletionListener(this);
                 v.setVideoURI(Uri.parse(url));
                 v.start();
             }

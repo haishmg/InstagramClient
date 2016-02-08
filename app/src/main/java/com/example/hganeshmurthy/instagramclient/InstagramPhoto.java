@@ -18,6 +18,26 @@ public class InstagramPhoto {
     private String location;
     private Long captionCreatedTime;
 
+    public String getVideoUrl() {
+        return videoUrl;
+    }
+
+    public void setVideoUrl(String videoUrl) {
+        this.videoUrl = videoUrl;
+    }
+
+    public String getVideoHeight() {
+        return videoHeight;
+    }
+
+    public void setVideoHeight(String videoHeight) {
+        this.videoHeight = videoHeight;
+    }
+
+    private String videoUrl;
+    private String videoHeight;
+
+
     public Long getCaptionCreatedTime() {
         return captionCreatedTime;
     }
