@@ -31,7 +31,7 @@ The following **bonus** features are implemented:
 The following **additional** features are implemented:
 
 * [X] List anything else that you can get done to improve the app functionality!
-*  Apply the popular Butterknife annotation library to reduce view boilerplate. 
+* [X] Apply the popular Butterknife annotation library to reduce view boilerplate. 
 
 ## Video Walkthrough 
 
